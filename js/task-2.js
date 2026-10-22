@@ -1,70 +1,48 @@
-// Задача 2. Користувачі з другом
-// Оголоси стрілочну функцію getUsersWithFriend,
-// яка очікує два параметри:
+// Задача 2. Склад
+// Створи клас Storage, який створюватиме об'єкти для управління складом
+// товарів. Клас очікує лише один аргумент — початковий масив товарів,
+// який записується до створеного об'єкта в приватну властивість items.
 
-// users — масив об'єктів користувачів
-// friendName — ім'я друга для пошуку
+// Оголоси такі методи класу:
 
-// Функція повертає масив усіх користувачів із масиву users,
-// у яких є друг з іменем friendName.
-// Друзі кожного користувача зберігаються у властивості friends.
-// Якщо користувачів з таким другом немає,
-// функція повертає порожній масив.
-const allUsers = [
-  {
-    name: 'Moore Hensley',
-    friends: ['Sharron Pace'],
-  },
-  {
-    name: 'Sharlene Bush',
-    friends: ['Briana Decker', 'Sharron Pace'],
-  },
-  {
-    name: 'Ross Vazquez',
-    friends: ['Marilyn Mcintosh', 'Padilla Garrison', 'Naomi Buckner'],
-  },
-  {
-    name: 'Elma Head',
-    friends: ['Goldie Gentry', 'Aisha Tran'],
-  },
-  {
-    name: 'Carey Barr',
-    friends: ['Jordan Sampson', 'Eddie Strong'],
-  },
-  {
-    name: 'Blackburn Dotson',
-    friends: ['Jacklyn Lucas', 'Linda Chapman'],
-  },
-  {
-    name: 'Sheree Anthony',
-    friends: ['Goldie Gentry', 'Briana Decker'],
-  },
-];
-const getUsersWithFriend = (users, friendName) =>
-  users.filter(user => user.friends.includes(friendName));
+// getItems() — повертає масив поточних товарів у
+// приватній властивості items.
+// addItem(newItem) — приймає новий товар newItem і
+// додає його до масиву товарів у приватну властивість items об'єкта.
+// removeItem(itemToRemove) — приймає рядок з назвою товару
+// itemToRemove і видаляє його з масиву товарів у приватній
+// властивості items об'єкта.
 
-console.log(getUsersWithFriend(allUsers, 'Briana Decker'));
-// [
-//   {
-//     name: "Sharlene Bush",
-//     friends: ["Briana Decker", "Sharron Pace"]
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"]
-//   }
-// ]
+// Візьми код нижче з ініціалізацією екземпляра й викликами методів
+// і встав його після оголошення класу для перевірки коректності роботи.
+// У консоль будуть виведені результати їх роботи.
+// Будь ласка, нічого там не змінюй.
 
-console.log(getUsersWithFriend(allUsers, 'Goldie Gentry'));
-// [
-//   {
-//     name: "Elma Head",
-//     friends: ["Goldie Gentry", "Aisha Tran"]
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"]
-//   }
-// ]
+class Storage {
+  #items;
+  constructor(param) {
+    this.#items = param;
+  }
+  getItems() {
+    return this.#items;
+  }
+  addItem(newItem) {
+    this.#items.push(newItem);
+  }
+  removeItem(itemToRemove) {
+    const index = this.#items.indexOf(itemToRemove);
+    if (index !== -1) {
+      this.#items.splice(index, 1);
+    }
+  }
+}
 
-console.log(getUsersWithFriend(allUsers, 'Adrian Cross')); // []
+const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
+
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+
+storage.addItem('Droid');
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+
+storage.removeItem('Prolonger');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
